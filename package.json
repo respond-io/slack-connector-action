@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hasithaishere/slack-connector-action.git"
+    "url": "git+https://github.com/respond-io/slack-connector-action.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hasithaishere/slack-connector-action/issues"
+    "url": "https://github.com/respond-io/slack-connector-action/issues"
   },
-  "homepage": "https://github.com/hasithaishere/slack-connector-action#readme",
+  "homepage": "https://github.com/respond-io/slack-connector-action#readme",
   "dependencies": {
     "@actions/core": "^1.10.0",
     "@actions/github": "^5.1.1",
