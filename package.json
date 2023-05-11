@@ -1,0 +1,19 @@
+{
+  "name": "slack-connector-action",
+  "version": "1.0.0",
+  "description": "GitHub Action to push action events to Slack workflow.",
+  "main": "index.js",
+  "scripts": {
+    "build": "ncc build index.js -o dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hasithaishere/slack-connector-action.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hasithaishere/slack-connector-action/issues"
+  },
+  "homepage": "https://github.com/hasithaishere/slack-connector-action#readme"
+}

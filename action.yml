@@ -1,0 +1,9 @@
+name: "Slack Connector Action"
+description: "GitHub Action to push action events to Slack workflow."
+inputs:
+  "slack-webhook-url":
+    description: "Slack Webhook URL"
+    required: true
+runs:
+  using: "node16"
+  main: "dist/index.js"
