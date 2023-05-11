@@ -1,10 +1,5 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const Version = require('./utils/version');
-const ChangeLog = require('./utils/fileHelpers/changelog');
-const PackageFile = require('./utils/fileHelpers/packageFile');
-const Git = require('./utils/git');
-const moment = require('moment');
 
 const main = async () => {
     const gitHelper = new Git();
