@@ -16384,7 +16384,7 @@ const main = async () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            data: data
+            data: JSON.stringify(responseBody)
         })
 
     } catch (error) {
