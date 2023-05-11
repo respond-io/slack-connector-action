@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+const axios = require('axios');
 
 const main = async () => {
     try {
@@ -47,6 +48,16 @@ const main = async () => {
         };
 
         console.log('Response Body >> ', JSON.stringify(responseBody));
+
+        await axios.request({
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: slackWebhookUrl,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data
+        })
 
     } catch (error) {
         core.setFailed(error.message);
