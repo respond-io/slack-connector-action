@@ -9793,9 +9793,8 @@ const core = __nccwpck_require__(8594);
 const github = __nccwpck_require__(9357);
 
 const main = async () => {
-    const gitHelper = new Git();
     try {
-        const token = core.getInput('slack-webhook-url', { required: true });
+        const slackWebhookUrl = core.getInput('slack-webhook-url', { required: true });
 
         const { 
             context: { payload: contextPayload, eventName },
@@ -9811,6 +9810,10 @@ const main = async () => {
 
         const { number: pullRequestNumber, title: pullRequestTitle, body: pullRequestBody } = contextPayload.pull_request;
 
+        console.log(`pullRequestNumber >> `, pullRequestNumber);
+        console.log(`pullRequestTitle >> `, pullRequestTitle);
+        console.log(`pullRequestBody >> `, pullRequestBody);
+        console.log(`slackWebhookUrl >> `, slackWebhookUrl);
         console.log(`Context >> `, JSON.stringify(contextPayload));
         console.log(`Event >> `, JSON.stringify(event));
 
