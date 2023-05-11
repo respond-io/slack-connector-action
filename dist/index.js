@@ -16360,12 +16360,6 @@ const main = async () => {
             }
         } = contextPayload;
 
-        // console.log(`pullRequestNumber >> `, pullRequestNumber);
-        // console.log(`pullRequestTitle >> `, pullRequestTitle);
-        // console.log(`pullRequestBody >> `, pullRequestBody);
-        // console.log(`slackWebhookUrl >> `, slackWebhookUrl);
-        //console.log(`Context >> `, JSON.stringify(contextPayload));
-
         const responseBody = {
             repo,
             actor: pullRequestMergedBy,
@@ -16374,8 +16368,6 @@ const main = async () => {
             pr_title: pullRequestTitle,
             pr_url: pullRequestUrl
         };
-
-        console.log('Response Body >> ', JSON.stringify(responseBody));
 
         await axios.request({
             method: 'post',
