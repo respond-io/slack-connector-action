@@ -8,17 +8,7 @@ const main = async () => {
         const {
             context: {
                 eventName,
-                payload: {
-                    pull_request: {
-                        number: pullRequestNumber,
-                        title: pullRequestTitle,
-                        body: pullRequestBody,
-                        html_url: pullRequestUrl,
-                        merged_by: {
-                            login: pullRequestMergedBy
-                        }
-                    }
-                },
+                payload: contextPayload,
             }
         } = github;
 
@@ -29,13 +19,23 @@ const main = async () => {
             process.exit(1);
         }
 
+        const {
+            pull_request: {
+                number: pullRequestNumber,
+                title: pullRequestTitle,
+                body: pullRequestBody,
+                html_url: pullRequestUrl,
+                merged_by: {
+                    login: pullRequestMergedBy
+                }
+            }
+        } = contextPayload;
 
-        console.log(`pullRequestNumber >> `, pullRequestNumber);
-        console.log(`pullRequestTitle >> `, pullRequestTitle);
-        console.log(`pullRequestBody >> `, pullRequestBody);
-        console.log(`slackWebhookUrl >> `, slackWebhookUrl);
-        console.log(`Context >> `, JSON.stringify(contextPayload));
-        console.log(`Event >> `, JSON.stringify(event));
+        // console.log(`pullRequestNumber >> `, pullRequestNumber);
+        // console.log(`pullRequestTitle >> `, pullRequestTitle);
+        // console.log(`pullRequestBody >> `, pullRequestBody);
+        // console.log(`slackWebhookUrl >> `, slackWebhookUrl);
+        //console.log(`Context >> `, JSON.stringify(contextPayload));
 
         const responseBody = {
             repo,
