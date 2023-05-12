@@ -16333,6 +16333,7 @@ const axios = __nccwpck_require__(7544);
 const main = async () => {
     try {
         const slackWebhookUrl = core.getInput('slack-webhook-url', { required: true });
+        const githubAccessToken = core.getInput('github-access-token', { required: true });
 
         const {
             context: {
@@ -16345,10 +16346,12 @@ const main = async () => {
 
         if (eventName !== 'pull_request' || contextPayload.pull_request === undefined || contextPayload.action !== 'closed' || contextPayload.pull_request.merged !== true || contextPayload.pull_request.draft === true) {
             console.log('ERROR :: This action should only be run on a closed pull request that has been merged');
-            process.exit(1);
+            process.exit(0);
         }
 
-        const {
+        const octokit = new github.getOctokit(githubAccessToken);
+
+        let {
             pull_request: {
                 number: pullRequestNumber,
                 title: pullRequestTitle,
@@ -16360,24 +16363,37 @@ const main = async () => {
             }
         } = contextPayload;
 
-        const responseBody = {
+        const { data: reviews } = await octokit.rest.pulls.listReviews({
+            owner,
             repo,
-            actor: pullRequestMergedBy,
-            message: pullRequestBody,
-            pr_number: pullRequestNumber.toString(),
-            pr_title: pullRequestTitle,
-            pr_url: pullRequestUrl
-        };
+            pull_number: contextPayload.pull_request.number,
+        });
 
-        await axios.request({
-            method: 'post',
-            maxBodyLength: Infinity,
-            url: slackWebhookUrl,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            data: JSON.stringify(responseBody)
-        })
+        const hasApprovedReview = reviews.some(review => review.state === 'APPROVED');
+
+        if (pullRequestBody === null) pullRequestBody = '';
+        if (pullRequestTitle === null) pullRequestTitle = '';
+
+        if (!hasApprovedReview) {
+            const responseBody = {
+                repo,
+                actor: pullRequestMergedBy,
+                message: pullRequestBody,
+                pr_number: pullRequestNumber.toString(),
+                pr_title: pullRequestTitle,
+                pr_url: pullRequestUrl
+            };
+
+            await axios.request({
+                method: 'post',
+                maxBodyLength: Infinity,
+                url: slackWebhookUrl,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify(responseBody)
+            });
+        }
 
     } catch (error) {
         core.setFailed(error.message);
