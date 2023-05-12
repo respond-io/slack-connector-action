@@ -16364,7 +16364,7 @@ const main = async () => {
             repo,
             actor: pullRequestMergedBy,
             message: pullRequestBody,
-            pr_number: pullRequestNumber,
+            pr_number: pullRequestNumber.toString(),
             pr_title: pullRequestTitle,
             pr_url: pullRequestUrl
         };
