@@ -16369,15 +16369,15 @@ const main = async () => {
             pr_url: pullRequestUrl
         };
 
-        await axios.request({
-            method: 'post',
-            maxBodyLength: Infinity,
-            url: slackWebhookUrl,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            data: JSON.stringify(responseBody)
-        })
+        // await axios.request({
+        //     method: 'post',
+        //     maxBodyLength: Infinity,
+        //     url: slackWebhookUrl,
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     data: JSON.stringify(responseBody)
+        // })
 
     } catch (error) {
         core.setFailed(error.message);
